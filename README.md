@@ -16,16 +16,80 @@ Run the tinytuya wizard or manually create tinytuya.json with API keys.
 Launch Python and import ttApp.
 
 ## Functionality
-Implemented:
+### Implemented:
 1. ttApp.on(bulb name: string) and .off(...) - Turn light on and off by bulb name.
 2. cherryPy integration for on and off - Turn light (hard-coded) on or off upon visiting a URL hosting server component.
 3. ttApp.morseCode(bulb name: string, message: string) - Take input string and cause target light to flash dots and dashes to communicate the input string.
 
-Planned:
-1. Light grouping in tree structure by floor, zone, room and fixture (e.g. chandelier, mirror) and functionality to apply a command to all descendents of a node in the tree.
+### Planned:
 2. Support color and scene mode (parity with native app).
-3. Support whole-house pre-sets for different scenarios.
-4. Allow replacing disconnected bulb with another by reusing the same name.
+1. Light grouping in tree structure by floor, zone, room and fixture (e.g. chandelier, mirror) and functionality to apply a command to all descendents of a node in the tree.
+3. Support pre-sets for different scenarios (e.g. "Company", "Day", "Evening", "Night", "Cook", "TV", "Party", "Presentation").
+4. Allow replacing disconnected bulb with another by reusing the same name (no updating ids, and no reconfiguring scenes, poweron, etc)
 5. Controlled animations in fixtures (e.g. in a circle around a chandelier)
 6. Guest access tokens
 7. Easy-bookmark URLs
+8. UI - expose selected scenarios (
+
+## Data Model
+### Modules:
+  Presets
+    MyPreset(Tag) - call/recurse with other presets. e.g. "Green", "Off", "MyAnimation", "MySceneMode"
+  Scenario
+    MyScenario - Apply preset to tag on command
+  Site
+  Tag
+  User
+  Utilities
+    Animation (TBD)
+    Flash (duration)
+    Morse (string)
+
+### Notes
+Tags are ordered (for animation) lists of tags and bulbs. Spatial hierarchy is configured through this.  
+Presets are registered as Python functions in a "presets" module. No need for inner platform.  
+Site 
+
+## Example Home
+\* = "Common space" tag
+\^ = "Window View"
+\` = "Outside"
+
+#### Loft/top level
+  - Pantry A*, B*
+  - Kitchen N*^, W*^, E*^
+  - Dining Room Overhead*^, Chandelier 1-6*^
+  - Loft Curio Cabinet*, Chandelier 1-5*^
+  - Tech Center
+#### Parlor/main level  
+  - Parlor
+    - SW*^, NE*^
+    - Hallway*
+  - Deck\`^
+  - Front Bathroom
+  - My Bedroom^
+  - His Bedroom 
+    - NW, SE
+    - Bathroom
+      - Shower, Mirror 1-22
+      - Closet A, B
+#### Atrium/ground level
+  - Atrium Overhead*^, Lamp*^
+  - Garage N, S
+#### Den/lower level
+  - Den N^, W^, S^, E^, Lamp^
+    - Hallway
+      - W*, E*
+      - Closet
+  - Porch\`
+  - Guest Room^
+  - Spare Room^
+  - Laundry Room^
+  - Downstairs Bathroom
+    - S, W, E
+    - Shower
+#### Basement/bottom level
+  - Basement NW, NE, SW, SE
+#### Sidewalk/outside
+  - Sidewalk W\`, E\`
+  - Front Door W\`, E\`
