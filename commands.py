@@ -53,11 +53,14 @@ def morseCode(bulb, message):
     time.sleep(2)
     [morseCodeChar(bulb, x) for x in message]
 
-def timer(name, duration, colour = [0,0,1000], alarmcolour=[0,1000,1000]):
+
+def timer(name, duration, colour = [0,0,1000], alarmcolour=[0,1000,1000], rgb=False):
+    '''if(rgb):
+        colour = rgb_to_hsv(colour)
+        alarmcolour = rgb_to_hsv(alarmcolour)'''
     on(name)
     command(name,"work_mode", "colour")
     command(name,"colour_data_v2", f'{{"h":{colour[0]},"s":{colour[1]},"v":{colour[2]}}}')
     time.sleep(duration)
     command(name,"colour_data_v2", f'{{"h":{alarmcolour[0]},"s":{alarmcolour[1]},"v":{alarmcolour[2]}}}')
-
 setup()
