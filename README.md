@@ -33,18 +33,17 @@ Launch Python and import ttApp.
 
 ## Data Model
 ### Modules:
-  Presets
-    MyPreset(Tag) - call/recurse with other presets. e.g. "Green", "Off", "MyAnimation", "MySceneMode"
-  Scenario
-    MyScenario - Apply preset to tag on command
-  Site
-  Tag
-  User
-  Utilities
-    Animation (TBD)
-    Flash (duration)
-    Morse (string)
-
+  - Presets
+    - MyPreset(Tag) - call/recurse with other presets. e.g. "Green", "Off", "MyAnimation", "MySceneMode"
+  - Scenario
+    - MyScenario - Apply preset to tag on command
+  - Tag
+  - User
+  - Utilities
+    - Animation (TBD)
+    - Flash (duration)
+    - Morse (string)
+  - Website
 ### Notes
 Tags are ordered (for animation) lists of tags and bulbs. Spatial hierarchy is configured through this.  
 Presets are registered as Python functions in a "presets" module. No need for inner platform.  
