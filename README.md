@@ -27,7 +27,7 @@ Launch Python and import ttApp.
 3. Support pre-sets for different scenarios (e.g. "Company", "Day", "Evening", "Night", "Cook", "TV", "Party", "Presentation").
 4. Allow replacing disconnected bulb with another by reusing the same name (no updating ids, and no reconfiguring scenes, poweron, etc)
 5. Controlled animations in fixtures (e.g. in a circle around a chandelier)
-6. Guest access tokens
+6. Guest access tokens (client cert auth)
 7. Easy-bookmark URLs
 8. UI - expose selected scenarios (
 
@@ -48,7 +48,7 @@ Launch Python and import ttApp.
 ### Notes
 Tags are ordered (for animation) lists of tags and bulbs. Spatial hierarchy is configured through this.  
 Presets are registered as Python functions in a "presets" module. No need for inner platform.  
-Site 
+Site needs a main UI and API. v2 needs a separate UI per user.
 
 ## Example Home
 \* = "Common space" tag
