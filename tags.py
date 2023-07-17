@@ -11,7 +11,7 @@ tags = getJson("tags.json")
 def tag(name, names):
     tag[name] = names
     
-def getBulbs(tag, depth=4):
+def getBulbs(tag, depth=10):
     if depth == 0:
         return []
     if tag not in tags:
