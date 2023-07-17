@@ -18,6 +18,7 @@ def command(name,code,value):
             {"code": code, "value": value}
         ]
     }
+    print(commands)
     client.sendcommand(device["id"],commands)
 
 def on(name):
@@ -25,6 +26,21 @@ def on(name):
     
 def off(name):
     command(name,"switch_led",False)
+
+def color(bulb, colour):
+    on(bulb)
+    command(bulb,"work_mode","colour")
+    command(bulb,"colour_data_v2",colour)
+    
+def mode(bulb,mode):
+    if mode == "off":
+        off(bulb)
+    elif mode == "initial":
+        off(bulb)
+        on(bulb)
+    else:
+        on(bulb)
+        commands.command(bulb,"work_mode",mode)
 
 def flash(name,duration=1,post_duration=1):
     on(name)
@@ -52,12 +68,5 @@ def morseCode(bulb, message):
     off(bulb)
     time.sleep(2)
     [morseCodeChar(bulb, x) for x in message]
-
-def timer(name, duration, colour = [0,0,1000], alarmcolour=[0,1000,1000]):
-    on(name)
-    command(name,"work_mode", "colour")
-    command(name,"colour_data_v2", f'{{"h":{colour[0]},"s":{colour[1]},"v":{colour[2]}}}')
-    time.sleep(duration)
-    command(name,"colour_data_v2", f'{{"h":{alarmcolour[0]},"s":{alarmcolour[1]},"v":{alarmcolour[2]}}}')
 
 setup()
