@@ -63,4 +63,21 @@ def timer(name, duration, colour = [0,0,1000], alarmcolour=[0,1000,1000], rgb=Fa
     command(name,"colour_data_v2", f'{{"h":{colour[0]},"s":{colour[1]},"v":{colour[2]}}}')
     time.sleep(duration)
     command(name,"colour_data_v2", f'{{"h":{alarmcolour[0]},"s":{alarmcolour[1]},"v":{alarmcolour[2]}}}')
+def scene(name, scene_num=1, unit_change_mode="jump", bright=500, temperature=500, h=0, s=1000, v=0):
+    unit_switch_duration = random.randint(15, 100)
+    unit_gradient_duration = random.randint(15, 100)
+
+    json_string = '{"scene_num":%d,"scene_units":{"unit_change_mode":"%s","unit_switch_duration":%d,"unit_gradient_duration":%d,"bright":%d,"temperature":%d,"h":%d,"s":%d,"v":%d}}' % (scene_num, unit_change_mode, unit_switch_duration, unit_gradient_duration, bright, temperature, h, s, v)
+
+    print(json_string)
+    command(name,"scene_data_v2", json_string)
+    command(name,"work_mode", "scene")
+    '''
+    commands.scene("Parlor NE", scene_num=8, h=0, s=1000)
+    {"scene_num":8,"scene_units":{"unit_change_mode":"jump","unit_switch_duration":24,"unit_gradient_duration":84,"bright":500,"temperature":500,"h":0,"s":1000,"v":0}}
+    {'code': 1104, 'msg': 'type is incorrect', 'success': False, 't': 1689560576070, 'tid': 'd7126c66244811ee8c70fe98ebe72f12'}
+    '''
+
 setup()
+
+
