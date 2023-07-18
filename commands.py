@@ -8,8 +8,8 @@ deviceMap = {}
 def setup():
     global client, devices, deviceMap
     config = utilities.getJson("tinytuya.json")
-    client = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eba566bcbc9b248288tg5o")
-    clientB = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eb467f285f7fa872bcnv1m")
+    client = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eb467f285f7fa872bcnv1m")
+    clientB = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eba566bcbc9b248288tg5o")
     devices = client.getdevices() + clientB.getdevices()
     deviceMap = {x["name"] : x for x in devices}
 
