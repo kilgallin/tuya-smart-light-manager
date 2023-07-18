@@ -39,5 +39,8 @@
 "Living Space":["Top Level", "Main Level", "Ground Level", "Lower Level"],
 "Interior":["Living Space","Garage","Basement"],
 "Exterior":["Sidewalk", "Front Door", "Deck", "Porch"],
+"South Wall":["Jul Bedroom", "JD Bedroom", "Parlor SW", "Parlor NE", "Deck", "Spare Room", "Guest Room", "Den", "Porch"],
+"Street Facing":["Atrium", "Kitchen", "Dining Room", "Loft"],
+"Direct View":["Exterior", "Street Facing"]
 "All":["Interior", "Exterior"]
 }
