@@ -29,12 +29,16 @@ def on(name):
 def off(name):
     command(name,"switch_led",False)
 
+def brightness(name, value):
+    on(name)
+    command(name,"bright_value_v2",value)
+
 def color(bulb, colour):
     on(bulb)
     command(bulb,"work_mode","colour")
     command(bulb,"colour_data_v2",colour)
     
-def mode(bulb,mode):
+def mode(bulb, mode):
     if mode == "off":
         off(bulb)
     elif mode == "initial":

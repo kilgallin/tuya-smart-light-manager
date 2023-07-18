@@ -12,6 +12,24 @@ def white(tag):
 def pink(tag):
     [commands.color(name,json.dumps({"h":342,"s":1000,"v":1000})) for name in tags.getBulbs(tag)]
     
+def dimmest(tag):
+    [commands.brightness(name,10) for name in tags.getBulbs(tag)]
+    
+def dim(tag):
+    [commands.brightness(name,32) for name in tags.getBulbs(tag)]
+    
+def dimmish(tag):
+    [commands.brightness(name,100) for name in tags.getBulbs(tag)]
+
+def brightish(tag):
+    [commands.brightness(name,320) for name in tags.getBulbs(tag)]
+
+def bright(tag):
+    [commands.brightness(name,750) for name in tags.getBulbs(tag)]
+    
+def brightest(tag):
+    [commands.brightness(name,1000) for name in tags.getBulbs(tag)]
+    
 def party(tag):
     [commands.mode(name,"scene") for name in tags.getBulbs(tag)]
 
