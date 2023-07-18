@@ -29,7 +29,7 @@ Launch Python and import ttApp.
 5. Controlled animations in fixtures (e.g. in a circle around a chandelier)
 6. Guest access tokens (client cert auth)
 7. Easy-bookmark URLs
-8. UI - expose selected scenarios (
+8. UI - expose selected scenarios
 
 ## Data Model
 ### Modules:

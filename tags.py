@@ -1,12 +1,6 @@
-import json
+import utilities
 
-def getJson(filename):
-  f = open(filename,"r")
-  contents = f.read()
-  f.close()
-  return json.loads(contents)
-
-tags = getJson("tags.json")
+tags = utilities.getJson("tags.json")
 
 def tag(name, names):
     tag[name] = names

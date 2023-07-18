@@ -1,24 +1,26 @@
-import json
 import time
 import tinytuya
+import utilities
 
 client = {}
 devices = []
 deviceMap = {}
 def setup():
     global client, devices, deviceMap
-    client = tinytuya.Cloud()
-    devices = client.getdevices()
+    config = utilities.getJson("tinytuya.json")
+    client = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eba566bcbc9b248288tg5o")
+    clientB = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eb467f285f7fa872bcnv1m")
+    devices = client.getdevices() + clientB.getdevices()
     deviceMap = {x["name"] : x for x in devices}
 
 def command(name,code,value):
+    print(name, code, value)
     device = next(d for d in devices if d["name"] == name)
     commands = {
         "commands": [
             {"code": code, "value": value}
         ]
     }
-    print(commands)
     client.sendcommand(device["id"],commands)
 
 def on(name):
@@ -40,7 +42,7 @@ def mode(bulb,mode):
         on(bulb)
     else:
         on(bulb)
-        commands.command(bulb,"work_mode",mode)
+        command(bulb,"work_mode",mode)
 
 def flash(name,duration=1,post_duration=1):
     on(name)
