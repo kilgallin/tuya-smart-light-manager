@@ -1,5 +1,5 @@
 import cherrypy, json, time
-import commands
+import commands, presets
 
 def getFile(filename,mode="r"):
   f = open(filename,mode)
@@ -12,9 +12,10 @@ class Root(object):
     def home(self):
         return getFile('static/site.html')
         
-    def site_js(self):
-        return getFile('static/site.js')
-        
+    @cherrypy.expose
+    def execute(self,tags,preset):
+        getattr(presets,preset)(tags)
+    
     @cherrypy.expose
     def on(self):
         commands.on("Parlor NE")

@@ -65,6 +65,14 @@ def brightest(tag):
     
 def party(tag):
     [commands.mode(name,"scene") for name in tags.getBulbs(tag)]
+    
+def on(tag):
+    print(f'on: {tag}')
+    [commands.on(name) for name in tags.getBulbs(tag)]
+    
+def off(tag):
+    print(f'off: {tag}')
+    [commands.off(name) for name in tags.getBulbs(tag)]
 
 def timer(name, duration, colour = [.0,0,1000], alarmcolour=[0,1000,1000]):
     commands.on(name)

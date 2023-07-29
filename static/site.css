@@ -25,3 +25,13 @@ td {
 	background-color:green;
 	
 }
+
+.selected {
+	background-color:white;
+	color:black;
+}
+
+.unselected {
+	background-color:black;
+	color:white;
+}
