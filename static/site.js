@@ -1,3 +1,5 @@
 $(document).ready(function() {
-	$('#test').html("Yes")
+	$('#headerExecute').click(function(){
+		alert("Yes")
+	});
 })
