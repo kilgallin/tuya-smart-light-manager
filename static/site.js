@@ -1,23 +1,61 @@
-$(document).ready(function() {
+function setHandlers(){
 	$('#headerExecute').click(function(){
 		$.ajax({
 			url: "execute",
-			type: "get",
+			type: "post",
 			data: {
-				tags:"Parlor",
+				tags:JSON.stringify($('.tag.selected').map( function (i, e){
+					return $(e).text()
+				}).get()),
 				preset:$('.preset.selected').text()
 			}
 		})
 	});
 	
-	$('.tag, .preset').click(function(){
+	$('.preset').click(function(){
 		if($(this).hasClass('selected')){
 			$(this).removeClass('selected')
 			return;
 		}
-		if($(this).hasClass('preset')){
-			$('.preset').removeClass('selected')
-		}
+		$('.preset').removeClass('selected')
 		$(this).addClass('selected')
 	})
+}
+
+function getTags(root){
+	$.ajax({
+		url: "getTags",
+		type: "get",
+		data: {
+			root: root
+		},
+		success: function(data){
+			$('#tagColumn').empty()
+			tags = JSON.parse(data)
+			tags.forEach( function(tag) {
+				$('#tagColumn').append("<div class='tag'>"+tag+"</div>")
+			})
+			$('#tagColumn .tag').click(function(){
+				if($(this).hasClass('selected')){
+					$(this).removeClass('selected')
+					return;
+				}
+				$(this).addClass('selected')
+			})
+			
+			$('#tagColumn .tag').dblclick(function(){
+				getTags($(this).text())
+			})
+		}
+	})
+}
+
+function loadData(){
+	getTags("Living Space")
+}
+
+
+$(document).ready(function() {
+	setHandlers()
+	loadData()
 })

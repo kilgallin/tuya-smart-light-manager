@@ -5,6 +5,9 @@ tags = utilities.getJson("tags.json")
 def tag(name, names):
     tag[name] = names
     
+def getChildren(tag):
+    return tags[tag]
+    
 def getBulbs(tag, depth=10):
     if depth == 0:
         return []

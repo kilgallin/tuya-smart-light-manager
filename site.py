@@ -1,5 +1,5 @@
 import cherrypy, json, time
-import commands, presets
+import commands, presets, tags
 
 def getFile(filename,mode="r"):
   f = open(filename,mode)
@@ -14,7 +14,11 @@ class Root(object):
         
     @cherrypy.expose
     def execute(self,tags,preset):
-        getattr(presets,preset)(tags)
+        [getattr(presets,preset)(tag) for tag in json.loads(tags)]
+        
+    @cherrypy.expose
+    def getTags(self,root="Living Space"):
+        return json.dumps(sorted(tags.getChildren(root)))
     
     @cherrypy.expose
     def on(self):
