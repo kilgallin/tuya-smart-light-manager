@@ -70,7 +70,6 @@ function loadData(){
 	getTags("Living Space")
 }
 
-
 $(document).ready(function() {
 	setHandlers()
 	loadData()

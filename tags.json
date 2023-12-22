@@ -38,7 +38,7 @@
 "Always On":["Kitchen N", "Atrium Overhead", "JD Bathroom Overhead"],
 "Bathrooms":["Jul Bathroom", "JD Bathroom", "Front Bathroom"],
 "Bedrooms":["JD Bedroom", "Jul Bedroom", "Guest Room", "Spare Room"],
-"Public":["Common Space", "Bathrooms", "Garage", "Guest Room", "Porch", "Deck", "JD Bathroom", "Den Hallway Closet"],
+"Public":["Common Space", "Bathrooms", "Garage", "Guest Room", "Porch", "Deck", "Front Door"],
 "Living Space":["Top Level", "Main Level", "Ground Level", "Lower Level"],
 "Interior":["Living Space","Garage","Basement"],
 "Exterior":["Sidewalk", "Front Door", "Deck", "Porch"],

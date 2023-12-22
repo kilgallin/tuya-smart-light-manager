@@ -1,4 +1,4 @@
-import cherrypy, json, time
+import cherrypy, json, secrets, time
 import commands, presets, tags
 
 def getFile(filename,mode="r"):
@@ -13,11 +13,11 @@ class Root(object):
         return getFile('static/site.html')
         
     @cherrypy.expose
-    def execute(self,tags,preset):
+    def execute(self,tags,preset,token):
         [getattr(presets,preset)(tag) for tag in json.loads(tags)]
         
     @cherrypy.expose
-    def getTags(self,root="Living Space"):
+    def getTags(self,root="Public"):
         return json.dumps(sorted(tags.getChildren(root)))
     
     @cherrypy.expose
@@ -27,6 +27,10 @@ class Root(object):
     @cherrypy.expose
     def off(self):
         commands.off("Parlor NE")
+        
+    @cherrypy.expose
+    def salt(self):
+        return secrets.token_hex(16)
 
 if __name__ == '__main__':
    cherrypy.quickstart(Root(), '/', 'site.conf')
