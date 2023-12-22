@@ -1,3 +1,4 @@
+import threading
 import time
 import tinytuya
 import utilities
@@ -13,7 +14,7 @@ def setup():
     devices = client.getdevices() + clientB.getdevices()
     deviceMap = {x["name"] : x for x in devices}
 
-def command(name,code,value):
+def execute(name,code,value):
     print(name, code, value)
     device = next(d for d in devices if d["name"] == name)
     commands = {
@@ -22,6 +23,10 @@ def command(name,code,value):
         ]
     }
     client.sendcommand(device["id"],commands)
+
+def command(name,code,value):
+    x = threading.Thread(target=execute, args=(name,code,value))
+    x.start()
 
 def on(name):
     command(name,"switch_led",True)
