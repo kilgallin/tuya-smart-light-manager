@@ -114,6 +114,10 @@ function setHandlers(){
 	$('.brightness').click(loadBrightnessOptions)
 }
 
+function goBack(){
+		getTags(tagQueue.pop())
+}
+
 function getTags(root){
 	$.ajax({
 		url: "getTags",
@@ -144,18 +148,25 @@ function getTags(root){
 				getTags($(this).text())
 			})
 			
-			$('#tagColumn .tag').on("taphold",function(){
-				tagQueue.push(root)
-				getTags($(this).text())
-			})
+			$('#tagColumn .tag').on('mousedown', function() {
+				tag = $(this).text()
+				timeoutId = setTimeout(function(){
+					tagQueue.push(root)
+					getTags(tag)
+				}, 1000);
+			}).on('mouseup mouseleave', function() {
+				clearTimeout(timeoutId);
+			});
 			
 			$('#tagColumn .back').dblclick(function(){
-				getTags(tagQueue.pop())
+				goBack()
 			})
 			
-			$('#tagColumn .back').on("taphold",function(){
-				getTags(tagQueue.pop())
-			})
+			$('#tagColumn .back').on('mousedown', function() {
+				timeoutId = setTimeout(goBack, 1000);
+			}).on('mouseup mouseleave', function() {
+				clearTimeout(timeoutId);
+			});
 		}
 	})
 }
