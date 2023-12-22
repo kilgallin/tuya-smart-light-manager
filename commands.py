@@ -1,3 +1,4 @@
+import os
 import threading
 import time
 import tinytuya
@@ -8,6 +9,7 @@ devices = []
 deviceMap = {}
 def setup():
     global client, devices, deviceMap
+    os.chdir("/home/jd_kilgallin/github/tuya-smart-light-manager/")
     config = utilities.getJson("tinytuya.json")
     client = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eb467f285f7fa872bcnv1m")
     clientB = tinytuya.Cloud(apiRegion="us",apiKey=config["apiKey"],apiSecret=config["apiSecret"],apiDeviceID="eba566bcbc9b248288tg5o")
