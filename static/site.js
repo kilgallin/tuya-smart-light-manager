@@ -144,7 +144,16 @@ function getTags(root){
 				getTags($(this).text())
 			})
 			
+			$('#tagColumn .tag').on("taphold",function(){
+				tagQueue.push(root)
+				getTags($(this).text())
+			})
+			
 			$('#tagColumn .back').dblclick(function(){
+				getTags(tagQueue.pop())
+			})
+			
+			$('#tagColumn .back').on("taphold",function(){
 				getTags(tagQueue.pop())
 			})
 		}
