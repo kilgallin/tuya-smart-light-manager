@@ -1,4 +1,39 @@
 tagQueue = []
+authcode = ""
+
+function sha256(data){
+    hashBuffer = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function getNonce(){
+
+}
+
+function login(){
+	username = $("usernameBox").text()
+	passwd = $("#passwordBox").text()
+	$.ajax({
+		url: "nonce",
+		type: "get",
+		data: {
+			username: username
+		},
+		success: function(nonce) {
+			$.ajax({
+				url: "token",
+				type: "post",
+				data: {
+					username: username,
+					passcode:sha256(passwd+nonce)
+				},
+				success: function(token) {
+					authcode = token				
+				}
+			})
+		}
+	})
+}
 
 function setHandlers(){
 	$('#headerExecute').click(function(){
