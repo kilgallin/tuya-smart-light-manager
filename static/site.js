@@ -69,7 +69,7 @@ function switchExecuteButton(){
 				return $(e).text()
 			}).get()),
 			preset:$('.preset.selected').text(),
-			username: "jdk",
+			username: $("#usernameBox").val(),
 			token: token
 		}
 	})
