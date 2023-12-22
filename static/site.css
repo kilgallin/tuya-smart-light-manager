@@ -29,6 +29,10 @@ td {
 	align:top;
 }
 
+#buttons {
+	visibility: none;
+}
+
 .selected {
 	background-color:white;
 	color:black;

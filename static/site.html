@@ -3,13 +3,26 @@
 	<title>Kilgallin Smart Light Manager</title>
 	<link href="static/site.css" rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
 	<script src="static/site.js"></script>
 </head>
 <body>
 	<table id="headerTable">
 		<tr id="headerRow">
 			<td id="headerUsername">User</td>
-			<td id="headerExecute">Execute</td>
+			<td id="headerExecute">Login</td>
+		</tr>
+	</table>
+	<table id="auth">
+		<tr id="usernameRow">
+			<td id="usernameLabel">Username</td>
+			<td id="usernameCell"><input type="text" id = "usernameBox"></td>
+		</tr>
+		<tr id="passwordRow">
+			<td id="passwordLabel">Password</td>
+			<td id="passwordCell"><input type="text" id = "passwordBox"></td>
 		</tr>
 	</table>
 	<table id="buttons">
@@ -20,7 +33,9 @@
 				<div class="preset">on</div>
 				<div class="preset">off</div>
 				<div class="preset">white</div>
+				<div class="preset">party</div>
 				<div class="color">color</div>
+				<div class="brightness">brightness</div>
 			</td>
 		</tr>
 	</table>

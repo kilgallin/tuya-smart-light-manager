@@ -1,18 +1,34 @@
 tagQueue = []
-authcode = ""
+token = ""
 
-function sha256(data){
-    hashBuffer = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+function sign_string(key_b64, to_sign) {
+	try {
+		key = CryptoJS.enc.Base64.parse(key_b64).toString(CryptoJS.enc.Utf8);
+	}
+	catch {
+		key = CryptoJS.enc.Hex.parse(toHex(atob(key_b64)));
+	}
+	hash = CryptoJS.HmacSHA256(to_sign, key);
+	hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+	return hashInBase64;
 }
 
-function getNonce(){
-
+function toHex(str) {
+	var result = '';
+	for (var i=0; i<str.length; i++) {
+	  if (str.charCodeAt(i).toString(16).length === 1) {
+		result += '0' + str.charCodeAt(i).toString(16);
+	  } else {
+		result += str.charCodeAt(i).toString(16);
+	  }
+	}
+	return result;
 }
+
 
 function login(){
-	username = $("usernameBox").text()
-	passwd = $("#passwordBox").text()
+	username = $("#usernameBox").val()
+	passwd = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse($("#passwordBox").val()));
 	$.ajax({
 		url: "nonce",
 		type: "get",
@@ -23,45 +39,79 @@ function login(){
 			$.ajax({
 				url: "token",
 				type: "post",
-				data: {
+				contentType: "application/json",
+				data: JSON.stringify({
 					username: username,
-					passcode:sha256(passwd+nonce)
-				},
-				success: function(token) {
-					authcode = token				
+					authcode: sign_string(passwd,nonce)
+				}),
+				success: function(newToken) {
+					loadData()
+					token = newToken
+					$("#auth").hide()
+					$("#headerUsername").text(username)
+					switchExecuteButton()
+					$("#buttons").show()
 				}
 			})
 		}
 	})
 }
 
-function setHandlers(){
+function switchExecuteButton(){
+	$('#headerExecute').text("Execute");
+	$('#headerExecute').off('click');
 	$('#headerExecute').click(function(){
-		$.ajax({
-			url: "execute",
-			type: "post",
-			data: {
-				tags:JSON.stringify($('.tag.selected').map( function (i, e){
-					return $(e).text()
-				}).get()),
-				preset:$('.preset.selected').text()
-			}
-		})
+	$.ajax({
+		url: "execute",
+		type: "post",
+		data: {
+			tags:JSON.stringify($('.tag.selected').map( function (i, e){
+				return $(e).text()
+			}).get()),
+			preset:$('.preset.selected').text(),
+			username: "jdk",
+			token: token
+		}
+	})
 	});
-	
-	$('.preset').click(function(){
-		if($(this).hasClass('selected')){
-			$(this).removeClass('selected')
+}
+
+function clickPreset(preset){
+		if($(preset).hasClass('selected')){
+			$(preset).removeClass('selected')
 			return;
 		}
 		$('.preset').removeClass('selected')
-		$(this).addClass('selected')
-	});
+		$(preset).addClass('selected')
+}
+
+function loadBrightnessOptions(){
+		$('#presetColumn .brightness').remove()
+		$('#presetColumn').append('<div class="preset">brightest</div><div class="preset">bright</div><div class="preset">brightish</div><div class="preset">dimmish</div><div class="preset">dim</div><div class="preset">dimmest</div>')
+		$('.preset').off("click")
+		$('.preset').click(function(){clickPreset(this)});
+	}
+
+function setHandlers(){
+	$('#headerExecute').click(login);
+	
+	$('.preset').click(function(){clickPreset(this)});
 	
 	$('.color').click(function(){
-		$('#presetColumn').children().last().remove()
-		$('#presetColumn').append('<div class="preset">red</div><div class="preset">orange</div><div class="preset">yellow</div>				<div class="preset">lime</div><div class="preset">green</div><div class="preset">aqua</div><div class="preset">cyan</div><div class="preset">blue</div><div class="preset">indigo</div><div class="preset">violet</div><div class="preset">pink</div>')
+		$('#presetColumn .color').remove()
+		$('#presetColumn').append('<div class="preset">pink</div><div class="preset">red</div><div class="preset">orange</div><div class="preset">yellow</div><div class="preset">lime</div><div class="preset">green</div><div class="preset">aqua</div><div class="preset">cyan</div><div class="preset">blue</div><div class="preset">indigo</div><div class="preset">violet</div>')
+
+		// Move brightness options back down to the bottom
+		$('#presetColumn .brightness').remove()
+		$('#presetColumn').append('<div class="brightness">brightness</div>')
+		$('.brightness').click(loadBrightnessOptions)
+
+		
+		$('.preset').off("click")
+		$('.preset').click(function(){clickPreset(this)});
 	})
+	
+	$('.brightness').click(loadBrightnessOptions)
 }
 
 function getTags(root){
@@ -102,10 +152,19 @@ function getTags(root){
 }
 
 function loadData(){
-	getTags("Living Space")
+	$.ajax({
+		url: "getRoot",
+		type: "post",
+		data: {
+			username: $("#usernameBox").val()
+		},
+		success: function(root){
+			getTags(root)
+		}
+	})
 }
 
 $(document).ready(function() {
+	$("#buttons").hide()
 	setHandlers()
-	loadData()
 })
