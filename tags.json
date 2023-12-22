@@ -45,5 +45,7 @@
 "South Wall":["Jul Bedroom", "JD Bedroom", "Parlor SW", "Parlor NE", "Deck", "Spare Room", "Guest Room", "Den", "Porch"],
 "Street Facing":["Atrium", "Kitchen", "Dining Room", "Loft"],
 "Direct View":["Exterior", "Street Facing"],
-"All":["Interior", "Exterior"]
+"All":["Interior", "Exterior"],
+"JulDefault":["Jul Bedroom", "Jul Bathroom", "Friendship Closet","All"],
+"JDDefault":["Top Level", "Main Level", "Ground Level", "Lower Level","All"]
 }
