@@ -40,12 +40,12 @@
 "Bedrooms":["JD Bedroom", "Jul Bedroom", "Guest Room", "Spare Room"],
 "Public":["Common Space", "Bathrooms", "Garage", "Guest Room", "Porch", "Deck", "Front Door"],
 "Living Space":["Top Level", "Main Level", "Ground Level", "Lower Level"],
-"Interior":["Living Space","Garage","Basement"],
+"Interior":["Living Space","Garage","Basement", "Master Suite"],
 "Exterior":["Sidewalk", "Front Door", "Deck", "Porch"],
 "South Wall":["Jul Bedroom", "JD Bedroom", "Parlor SW", "Parlor NE", "Deck", "Spare Room", "Guest Room", "Den", "Porch"],
 "Street Facing":["Atrium", "Kitchen", "Dining Room", "Loft"],
 "Direct View":["Exterior", "Street Facing"],
 "All":["Interior", "Exterior"],
 "JulDefault":["Jul Bedroom", "Jul Bathroom", "Friendship Closet","All"],
-"JDDefault":["Top Level", "Main Level", "Ground Level", "Lower Level","All"]
+"JDDefault":["Top Level", "Main Level", "Lower Level", "All"]
 }
