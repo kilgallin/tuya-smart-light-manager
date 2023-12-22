@@ -1,3 +1,5 @@
+tagQueue = []
+
 function setHandlers(){
 	$('#headerExecute').click(function(){
 		$.ajax({
@@ -19,6 +21,11 @@ function setHandlers(){
 		}
 		$('.preset').removeClass('selected')
 		$(this).addClass('selected')
+	});
+	
+	$('.color').click(function(){
+		$('#presetColumn').children().last().remove()
+		$('#presetColumn').append('<div class="preset">red</div><div class="preset">orange</div><div class="preset">yellow</div>				<div class="preset">lime</div><div class="preset">green</div><div class="preset">aqua</div><div class="preset">cyan</div><div class="preset">blue</div><div class="preset">indigo</div><div class="preset">violet</div><div class="preset">pink</div>')
 	})
 }
 
@@ -35,6 +42,10 @@ function getTags(root){
 			tags.forEach( function(tag) {
 				$('#tagColumn').append("<div class='tag'>"+tag+"</div>")
 			})
+			if (tagQueue.length > 0) {
+				$('#tagColumn').append("<div class='back'>Back</div>")
+			}
+			
 			$('#tagColumn .tag').click(function(){
 				if($(this).hasClass('selected')){
 					$(this).removeClass('selected')
@@ -44,7 +55,12 @@ function getTags(root){
 			})
 			
 			$('#tagColumn .tag').dblclick(function(){
+				tagQueue.push(root)
 				getTags($(this).text())
+			})
+			
+			$('#tagColumn .back').dblclick(function(){
+				getTags(tagQueue.pop())
 			})
 		}
 	})

@@ -23,7 +23,10 @@ td {
 
 #headerExecute {
 	background-color:green;
-	
+}
+
+#tagColumn {
+	align:top;
 }
 
 .selected {
@@ -34,4 +37,10 @@ td {
 .unselected {
 	background-color:black;
 	color:white;
+}
+
+.back {
+	font-size: small;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
