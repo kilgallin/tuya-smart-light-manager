@@ -148,13 +148,13 @@ function getTags(root){
 				getTags($(this).text())
 			})
 			
-			$('#tagColumn .tag').on('mousedown', function() {
+			$('#tagColumn .tag').on('touchstart', function() {
 				tag = $(this).text()
 				timeoutId = setTimeout(function(){
 					tagQueue.push(root)
 					getTags(tag)
 				}, 1000);
-			}).on('mouseup mouseleave', function() {
+			}).on('mouseup mouseleave touchend', function() {
 				clearTimeout(timeoutId);
 			});
 			
@@ -162,9 +162,9 @@ function getTags(root){
 				goBack()
 			})
 			
-			$('#tagColumn .back').on('mousedown', function() {
+			$('#tagColumn .back').on('touchstart', function() {
 				timeoutId = setTimeout(goBack, 1000);
-			}).on('mouseup mouseleave', function() {
+			}).on('mouseup mouseleave touchend', function() {
 				clearTimeout(timeoutId);
 			});
 		}
