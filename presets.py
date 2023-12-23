@@ -4,7 +4,7 @@ import tags
 import json
 import time
 
-hues = {"red":0, "orange":16, "yellow":40, "lime":80, "green":120, "aqua":136, "cyan":150, "blue":240, "indigo":256, "violet":290, "pink":342}
+hues = {"red":0, "orange":16, "yellow":40, "lime":80, "green":120, "aqua":136, "cyan":150, "blue":240, "indigo":256, "violet":290, "pink":353}
 
 def hue(tag, color):
     [commands.color(name,json.dumps({"h":hues[color],"s":1000,"v":1000})) for name in tags.getBulbs(tag)]
