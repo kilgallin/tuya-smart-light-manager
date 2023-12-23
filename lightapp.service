@@ -1,0 +1,14 @@
+[Unit]
+Description=Kilgallin Smart Lights
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=python /home/jd_kilgallin/github/tuya-smart-light-manager/site.py > /home/jd_kilgallin/github/tuya-smart-light-manager/log.txt 2> /home/jd_kilgallin/github/tuya-smart-light-manager/log.txt
+
+[Install]
+WantedBy=multi-user.target
