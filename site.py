@@ -7,7 +7,7 @@ def getFile(filename,mode="r"):
   f.close()
   return contents
   
-nonces = {"jdk":"4955763f001968f2a18abb13d47e89ea"}
+nonces = {}
 passwords = json.loads(getFile("password.json"))
 config = json.loads(getFile("config.json"))
 tokens = {}
